@@ -1,0 +1,5 @@
+/geckodriver.log
+/eneba_log.html
+/scraper/geckodriver
+/.*
+/scraper/sites/__pycache__/*
