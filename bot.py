@@ -18,20 +18,6 @@ bot = commands.Bot(command_prefix=PREFIX)
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
 
-'''
-@client.event
-async def on_message(message):
-    if (not message.content.startswith(PREFIX)) or message.author.bot:
-        return
-
-    # Build the message
-    embedMsg = discord.Embed(title="Prices for %s:" % message.content[len(PREFIX):],
-                             description="Waiting for results",
-                             colour=0x4B0082)
-    await message.channel.send(embed=embedMsg)
-
-'''
-
 
 @bot.command(name='price')
 async def price(ctx):
