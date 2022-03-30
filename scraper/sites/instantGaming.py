@@ -1,3 +1,4 @@
+import logging
 from bs4 import BeautifulSoup
 from .funcs import load_selenium, parse_price
 
@@ -16,7 +17,7 @@ def scrapIG(name):
         price = listing.find('div', attrs={'class': 'price'}).text
         price = parse_price(price)
     except AttributeError:
+        logging.error("%s couldn't find a price" % scrapIG.__name__)
         price = "Not found"
-        print()
 
     return price

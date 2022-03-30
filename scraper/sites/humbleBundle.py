@@ -1,3 +1,4 @@
+import logging
 from bs4 import BeautifulSoup
 from .funcs import parse_price, load_selenium
 
@@ -15,6 +16,7 @@ def scrapHB(name):
         price = parser.find('span', attrs={'class': 'price'}).text
         price = parse_price(price)
     except AttributeError:
+        logging.error("%s couldn't find a price" % scrapHB.__name__)
         price = "Not found"
 
     return price

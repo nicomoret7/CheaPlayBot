@@ -1,3 +1,4 @@
+import logging
 from bs4 import BeautifulSoup
 from .funcs import parse_price, load_selenium
 
@@ -16,6 +17,7 @@ def scrapG2A(name):
         price = parser.find('span', attrs={'class': 'fhiSmq'}).text
         price = parse_price(price)
     except AttributeError:
+        logging.error("%s couldn't find a price" % scrapG2A.__name__)
         price = "Not found"
 
     return price

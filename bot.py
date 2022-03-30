@@ -1,11 +1,15 @@
 import os
 import discord
-from time import sleep
+import logging
 from dotenv import load_dotenv
 from discord.ext import commands
-
 from scraper.scraper import scrap
 
+
+# Logger
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+
+# Bot config
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 PREFIX = os.getenv('PREFIX')
@@ -16,7 +20,7 @@ bot = commands.Bot(command_prefix=PREFIX)
 
 @bot.event
 async def on_ready():
-    print(f'{bot.user.name} has connected to Discord!')
+    logging.info(f'%s has connected to Discord!' % bot.user.name)
 
 
 @bot.command(name='price')

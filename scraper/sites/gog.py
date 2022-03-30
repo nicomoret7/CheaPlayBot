@@ -1,3 +1,5 @@
+import logging
+
 import requests
 from bs4 import BeautifulSoup
 from .funcs import parse_price
@@ -12,6 +14,7 @@ def scrapGOG(name):
         price = parser.find('span', attrs={'class': 'product-tile__price--final'}).text
         price = parse_price(price)
     except AttributeError:
+        logging.error("%s couldn't find a price" % scrapGOG.__name__)
         price = "Not found"
 
     return price
