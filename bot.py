@@ -46,7 +46,7 @@ async def run_blocking(blocking_func: typing.Callable, *args, **kwargs) -> typin
 @commands.cooldown(1, 60)
 async def price(ctx):
     logging.info("User %s issued: %s" % (ctx.author, ctx.message.content))
-    game = re.sub(r"[^a-zA-Z\s]", "", ctx.message.content)  # Sanitize input
+    game = re.sub(r"[^a-zA-Z0-9\s]", "", ctx.message.content)  # Sanitize input
     game = re.sub(r"[^\s]+\s", "", game, count=1)  # Crop command
 
     # Build the embed message
