@@ -1,9 +1,12 @@
+import functools
 import os
 import re
 import discord
 import logging
 from dotenv import load_dotenv
 from discord.ext import commands
+import typing
+
 from scraper.scraper import scrap
 
 # Logger
@@ -32,6 +35,13 @@ async def on_command_error(ctx, error):
         return
 
 
+async def run_blocking(blocking_func: typing.Callable, *args, **kwargs) -> typing.Any:
+    """Runs a blocking function in a non-blocking way"""
+    # `run_in_executor` doesn't support kwargs, `functools.partial` does
+    func = functools.partial(blocking_func, *args, **kwargs)
+    return await client.loop.run_in_executor(None, func)
+
+
 @bot.command(name='price')
 @commands.cooldown(1, 60)
 async def price(ctx):
@@ -46,7 +56,8 @@ async def price(ctx):
     sent = await ctx.send(embed=embedMsg)
 
     # Retrieve the info
-    data = '\n'.join(["- **%s**: %s" % (site["name"], site["price"]) for site in scrap(game)])
+    results = await run_blocking(scrap, game)
+    data = '\n'.join(["- **%s**: %s" % (site["name"], site["price"]) for site in results])
     embedMsg.description = data
     await sent.edit(embed=embedMsg)
 
