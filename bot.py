@@ -1,10 +1,10 @@
 import os
+import re
 import discord
 import logging
 from dotenv import load_dotenv
 from discord.ext import commands
 from scraper.scraper import scrap
-
 
 # Logger
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -25,8 +25,11 @@ async def on_ready():
 
 @bot.command(name='price')
 async def price(ctx):
-    # Build the message
-    game = ' '.join(ctx.message.content.split(' ')[1:])
+    # game = ' '.join(ctx.message.content.split(' ')[1:])
+    game = re.sub(r"[^a-zA-Z\s]", "", ctx.message.content)  # Sanitize input
+    game = re.sub(r"[^\s]+\s", "", game, count=1)  # Crop command
+
+    # Build the embed message
     embedMsg = discord.Embed(title="Prices for %s:" % game,
                              description="Waiting for results",
                              colour=0x4B0082)
