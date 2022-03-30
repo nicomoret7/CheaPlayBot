@@ -23,9 +23,19 @@ async def on_ready():
     logging.info(f'%s has connected to Discord!' % bot.user.name)
 
 
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandOnCooldown):
+        msg = f"This command is in cooldown, try again in %.2f seconds" % error.retry_after
+        logging.warning(msg)
+        await ctx.send(msg)
+        return
+
+
 @bot.command(name='price')
+@commands.cooldown(1, 60)
 async def price(ctx):
-    # game = ' '.join(ctx.message.content.split(' ')[1:])
+    logging.info("User %s issued: %s" % (ctx.author, ctx.message.content))
     game = re.sub(r"[^a-zA-Z\s]", "", ctx.message.content)  # Sanitize input
     game = re.sub(r"[^\s]+\s", "", game, count=1)  # Crop command
 
