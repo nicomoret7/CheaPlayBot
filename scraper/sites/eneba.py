@@ -7,7 +7,7 @@ from .funcs import parse_price, load_selenium
 def scrapEneba(name):
 
     page = requests.get("https://www.eneba.com/store/steam-games?page=1&platforms[]=STEAM&regions[]=europe&regions["
-                        "]=global&sortBy=PRICE_ASC&text=%s&types[]=game" % name)
+                        "]=global&sortBy=POPULARITY_DESC&text=%s&types[]=game" % name)
     parser = BeautifulSoup(page.text, features="lxml")
 
     # name = ''
