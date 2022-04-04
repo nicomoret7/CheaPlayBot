@@ -43,7 +43,7 @@ async def run_blocking(blocking_func: typing.Callable, *args, **kwargs) -> typin
 
 
 @bot.command(name='price')
-@commands.cooldown(1, 30)
+@commands.cooldown(1, 15)
 async def price(ctx):
     logging.info("User %s issued: %s" % (ctx.author, ctx.message.content))
     game = re.sub(r"[^a-zA-Z0-9\s]", "", ctx.message.content)  # Sanitize input
