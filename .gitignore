@@ -3,4 +3,5 @@
 /scraper/geckodriver
 /.*
 /scraper/sites/__pycache__/*
+/scraper/__pycache__/*
 /bot.log
