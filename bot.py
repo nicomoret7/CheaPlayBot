@@ -6,8 +6,8 @@ import logging
 from dotenv import load_dotenv
 from discord.ext import commands
 import typing
-
-from scraper.scraper import scrap
+# from scraper.scraper import scrap # Not threaded
+from scraper.scraperThreaded import scrap
 
 # Logger
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -43,7 +43,7 @@ async def run_blocking(blocking_func: typing.Callable, *args, **kwargs) -> typin
 
 
 @bot.command(name='price')
-@commands.cooldown(1, 60)
+@commands.cooldown(1, 30)
 async def price(ctx):
     logging.info("User %s issued: %s" % (ctx.author, ctx.message.content))
     game = re.sub(r"[^a-zA-Z0-9\s]", "", ctx.message.content)  # Sanitize input

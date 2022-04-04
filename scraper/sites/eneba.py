@@ -1,10 +1,10 @@
 import logging
 import requests
 from bs4 import BeautifulSoup
-from .funcs import parse_price, load_selenium
+from .funcs import parse_price
 
 
-def scrapEneba(name):
+def scrapEneba(name, driver):
 
     page = requests.get("https://www.eneba.com/store/steam-games?page=1&platforms[]=STEAM&regions[]=europe&regions["
                         "]=global&sortBy=POPULARITY_DESC&text=%s&types[]=game" % name)
