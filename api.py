@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Api, Resource
-from .scraper import scrap
+from scraper.scraper import scrap
 
 
 app = Flask(__name__)
