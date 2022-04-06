@@ -20,7 +20,6 @@ def scrap(name):
         for out in as_completed([executor.submit(single, site, name)
                                  for site in sites]):
             prices.append(out.result())
-            print(out.result())
 
     logging.info("Search for '%s' done." % name)
 
