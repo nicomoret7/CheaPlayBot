@@ -1,4 +1,6 @@
 import logging
+import time
+
 from .sites import sites
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -13,6 +15,7 @@ def single(site, name):
 
 def scrap(name):
     logging.info("Performing search for game: %s" % name)
+    time_init = time.perf_counter()
 
     prices = []
 
@@ -21,6 +24,7 @@ def scrap(name):
                                  for site in sites]):
             prices.append(out.result())
 
-    logging.info("Search for '%s' done." % name)
+    time_finnish = time.perf_counter()
+    logging.info("Search for '%s' done. Time Spent: %d" % (name, time_finnish-time_init))
 
     return prices
