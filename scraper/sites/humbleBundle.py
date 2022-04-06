@@ -3,10 +3,12 @@ from bs4 import BeautifulSoup
 from .funcs import parse_price, load_selenium
 
 
-def scrapHB(name, driver):
+def scrapHB(name):
 
+    driver = load_selenium()
     driver.get("https://www.humblebundle.com/store/search?sort=bestselling&search=%s&drm=steam" % name)
     parser = BeautifulSoup(driver.page_source, features="lxml")
+    driver.quit()
 
     try:
         price = parser.find('span', attrs={'class': 'price'}).text

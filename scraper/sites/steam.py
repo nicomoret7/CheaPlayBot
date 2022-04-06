@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from .funcs import parse_price
 
 
-def scrapSteam(name, driver):
+def scrapSteam(name):
 
     page = requests.get("https://store.steampowered.com/search/?term=%s" % name)
     parser = BeautifulSoup(page.text, features="lxml")

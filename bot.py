@@ -3,6 +3,8 @@ import os
 import re
 import discord
 import logging
+
+import urllib3
 from dotenv import load_dotenv
 from discord.ext import commands
 import typing

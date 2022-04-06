@@ -1,12 +1,11 @@
 import logging
 from .sites import sites
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from .sites.funcs import load_selenium
 
 
-def single(site, name, driver):
+def single(site, name):
     logging.info("Scanning %s for search: %s" % (site, name))
-    price = sites[site](name, driver)
+    price = sites[site](name)
     logging.info("%s: %s for search: %s" % (site, price, name))
 
     return {"name": site, "price": price}
@@ -17,14 +16,12 @@ def scrap(name):
 
     prices = []
 
-    driver = load_selenium()
-
-    with ThreadPoolExecutor(max_workers=len(sites)) as executor:
-        for out in as_completed([executor.submit(single, site, name, driver)
+    with ThreadPoolExecutor(max_workers=50) as executor:
+        for out in as_completed([executor.submit(single, site, name)
                                  for site in sites]):
             prices.append(out.result())
+            print(out.result())
 
-    driver.quit()
     logging.info("Search for '%s' done." % name)
 
     return prices
